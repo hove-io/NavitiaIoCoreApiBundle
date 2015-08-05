@@ -1,0 +1,13 @@
+CanalTP\NavitiaIoCoreApiBundle\Entity\User:
+    exclusion_policy: ALL
+    access_type: property
+    xml_root_name: user
+    properties:
+        firstName:
+            expose: true
+        lastName:
+            expose: true
+        projectType:
+            expose: true
+        keys:
+            expose: true

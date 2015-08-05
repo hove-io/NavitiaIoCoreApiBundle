@@ -1,0 +1,6 @@
+api_get_user:
+    pattern: /users/{username}.{_format}
+    defaults: { _controller: CanalTPNavitiaIoCoreApiBundle:UserRest:getUser, _format: 'json' }
+api_get_users:
+    pattern: /users.{_format}
+    defaults: { _controller: CanalTPNavitiaIoCoreApiBundle:UserRest:getUsers, _format: 'json' }
