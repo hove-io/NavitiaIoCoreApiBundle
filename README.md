@@ -1,89 +1,97 @@
-README
-======
+NavitiaIoCoreApiBundle
+======================
 
-What is NAVITIA.IO ?
-------------------
-
-- [Git](https://github.com/CanalTP/NavitiaIoCoreApiBundle)
+This bundle extends FOSUserBundle and provide an user rest API using Tyr.
 
 
-Requirements
--------------
+## Installation
 
-- postGreSQL database
+Install via composer
+
+``` js
+{
+    "require": {
+        "canaltp/navitia-io-core-api-bundle": "dev-master"
+    }
+}
+```
+
+Updating **AppKernel.php**:
+
+``` php
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            new CanalTP\TyrBundle\CanalTPTyrBundle(),
+            new CanalTP\NavitiaIoCoreApiBundle\CanalTPNavitiaIoCoreApiBundle(),
+        );
+    }
+```
+
+Tyr configuration
+
+``` yml
+# Tyr api configuration
+canal_tp_tyr:
+    url:            %tyr_url%
+    end_point_id:   2
+```
+
+Add parameters in **parameters.yml**:
+
+``` yml
+parameters:
+    tyr_url: http://tyr.dev.canaltp.fr/v0/
+```
 
 
-Installation
--------------
+## Usage
 
+Set this bundle as parent of your user bundle:
+
+``` php
     public function getParent()
     {
         return 'CanalTPNavitiaIoCoreApiBundle';
     }
-
-### 1. Routing configuration
-
-    Add this lines in routing.yml of your application
-
-```
-    rest_user:
-        type: rest
-        resource: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/routing_rest.yml"
-
 ```
 
-### 2. JMS Serializer configuration
+Extending [User](Entity/User.php) class:
 
-    Add this lines in your config.yml
+``` php
+namespace Acme\AppBundle\Entity;
 
-```
-    jms_serializer:
-        metadata:
-            debug: "%kernel.debug%"
-            file_cache:
-                dir: "%kernel.cache_dir%/serializer"
-            auto_detection: true
-            directories:
-                FOSUserBundle:
-                    namespace_prefix: FOS\UserBundle
-                    path: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/serializer/FOSUserBundle"
-                KnpPaginatorBundle:
-                    namespace_prefix: Knp\Bundle\PaginatorBundle
-                    path: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/serializer/KnpPaginatorBundle"
-                KnpPager:
-                    namespace_prefix: Knp\Component\Pager
-                    path: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/serializer/KnpPager"
-```
+use CanalTP\NavitiaIoCoreApiBundle\Entity\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
 
-### 3. Behat configuration
+/**
+ * @ORM\MappedSuperclass
+ */
+class User extends BaseUser
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 
-    Add "suite" in your behat.yml
-
-```
-        rest_api_users:
-            type: symfony_bundle
-            bundle: 'CanalTPNavitiaIoRestBundle'
+    // Custom fields
+}
 ```
 
-### 4. Parameters
 
-    Add this lines in your parameters.yml
-
-```
-    rest_api_users:
-        user_test:
-            password: password_test
-            roles: ROLE_API_USER
-    test_database_host: localhost
-    test_database_user: navio_local_test
-    test_database_name: sam
-    test_database_password: sam
-```
-
-Contributing
--------------
+## Contributors
 
 1. Thomas Noury - thomas.noury@canaltp.fr
 2. Julien Maulny - julien.maulny@canaltp.fr
 3. Ludovic Roche - ludovic.roche@canaltp.fr
 4. Rémy Abi Khalil - remy.abi-khalil@canaltp.fr
+
+
+## License
+
+This project is under [GPL-3.0 License](LICENSE).
