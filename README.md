@@ -23,6 +23,10 @@ Updating **AppKernel.php**:
     {
         $bundles = array(
             // ...
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
             new CanalTP\TyrBundle\CanalTPTyrBundle(),
             new CanalTP\NavitiaIoCoreApiBundle\CanalTPNavitiaIoCoreApiBundle(),
         );
