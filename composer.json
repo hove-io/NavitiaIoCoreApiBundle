@@ -6,6 +6,7 @@
     "homepage": "https://github.com/CanalTP/NavitiaIoCoreApiBundle",
     "keywords": ["symfony", "tyr", "user", "rest", "api"],
     "require": {
+        "php": ">=5.2",
         "canalTP/tyr-bundle": "1.x",
         "friendsofsymfony/user-bundle": "~1.0",
         "friendsofsymfony/rest-bundle": "^1.7",
