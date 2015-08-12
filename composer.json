@@ -1,11 +1,10 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "license": "MIT",
-    "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
-    "autoload": {
-        "psr-0": { "": "src/" }
-    },
+    "name": "canaltp/navitia-io-core-api-bundle",
+    "license": "GPL-3.0",
+    "type": "symfony-bundle",
+    "description": "Symfony2 bundle which extends FOSUserBundle and provide an user rest API using Tyr.",
+    "homepage": "https://github.com/CanalTP/NavitiaIoCoreApiBundle",
+    "keywords": ["symfony", "tyr", "user", "rest", "api"],
     "require": {
         "canalTP/tyr-bundle": "1.x",
         "friendsofsymfony/user-bundle": "~1.0",
@@ -40,34 +39,7 @@
             "url": "http://packagist.canaltp.fr"
         }
     ],
-    "scripts": {
-        "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
-        ],
-        "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
-        ]
-    },
-    "config": {
-        "bin-dir": "bin"
-    },
-    "extra": {
-        "symfony-app-dir": "app",
-        "symfony-web-dir": "web",
-        "symfony-assets-install": "symlink",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "2.4-dev"
-        }
+    "autoload": {
+        "psr-4": { "CanalTP\\NavitiaIoCoreApiBundle\\": "" }
     }
 }
