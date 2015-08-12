@@ -5,7 +5,6 @@ namespace CanalTP\NavitiaIoCoreApiBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use FOS\RestBundle\Controller\Annotations\View;
 use CanalTP\NavitiaIoCoreApiBundle\Entity\Key;
 
 class UserRestController extends Controller
@@ -17,8 +16,6 @@ class UserRestController extends Controller
      * @return Response
      *
      * @throws NotFoundHttpException
-     *
-     * @View(serializerGroups={"Default", "Details"})
      */
     public function getUserAction($username, $_format)
     {
@@ -48,8 +45,6 @@ class UserRestController extends Controller
      * @return Response
      *
      * @throws NotFoundHttpException
-     *
-     * @View(serializerGroups={"Default"})
      */
     public function getUsersAction ($_format)
     {
