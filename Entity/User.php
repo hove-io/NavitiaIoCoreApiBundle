@@ -10,21 +10,21 @@ use Doctrine\ORM\Mapping as ORM;
 class User extends BaseUser
 {
     /**
-     * @var string $firstName
+     * @var string
      *
      * @ORM\Column(name="first_name", type="string")
      */
     private $firstName;
 
     /**
-     * @var string $lastName
+     * @var string
      *
      * @ORM\Column(name="last_name", type="string")
      */
     private $lastName;
 
     /**
-     * @var \DateTime $createdAt
+     * @var \DateTime
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
@@ -32,7 +32,7 @@ class User extends BaseUser
     private $createdAt;
 
     /**
-     * @var \DateTime $updatedAt
+     * @var \DateTime
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime")
@@ -40,7 +40,7 @@ class User extends BaseUser
     private $updatedAt;
 
     /**
-     * @var Tokens[]
+     * @var Token[]
      */
     protected $tokens = array();
 
@@ -51,7 +51,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return Tokens[]
+     * @return Token[]
      */
     public function getTokens()
     {
@@ -59,7 +59,7 @@ class User extends BaseUser
     }
 
     /**
-     * @param Tokens[] $tokens
+     * @param Token[] $tokens
      *
      * @return User
      */
@@ -71,7 +71,7 @@ class User extends BaseUser
     }
 
     /**
-     * @param Tokens $token
+     * @param Token $token
      *
      * @return User
      */
