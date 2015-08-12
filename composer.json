@@ -1,0 +1,46 @@
+{
+    "name": "canaltp/navitia-io-core-api-bundle",
+    "license": "GPL-3.0",
+    "type": "symfony-bundle",
+    "description": "Symfony2 bundle which extends FOSUserBundle and provide an user rest API using Tyr.",
+    "homepage": "https://github.com/CanalTP/NavitiaIoCoreApiBundle",
+    "keywords": ["symfony", "tyr", "user", "rest", "api"],
+    "require": {
+        "php": ">=5.2",
+        "canalTP/tyr-bundle": "1.x",
+        "friendsofsymfony/user-bundle": "~1.0",
+        "friendsofsymfony/rest-bundle": "^1.7",
+        "jms/serializer-bundle": "1.0.0",
+        "jms/serializer": "^1.0",
+        "knplabs/knp-paginator-bundle": "~2.4.2",
+        "gedmo/doctrine-extensions": "~2.4.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "behat/behat": "formatter_junit_1-dev as 3.0.6",
+        "behat/symfony2-extension": "~2.0",
+        "behat/mink": "~1.5",
+        "behat/mink-extension": "~2.0",
+        "behat/mink-browserkit-driver": "~1.1",
+        "behat/mink-bundle": "~1.4",
+        "behat/mink-selenium2-driver": "v1.2.0",
+        "behat/mink-goutte-driver": "~1.0"
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:CanalTP/NmpAcceptanceTestBundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/james75/Behat"
+        },
+        {
+            "type": "composer",
+            "url": "http://packagist.canaltp.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "CanalTP\\NavitiaIoCoreApiBundle\\": "" }
+    }
+}
