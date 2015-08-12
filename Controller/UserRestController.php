@@ -5,7 +5,7 @@ namespace CanalTP\NavitiaIoCoreApiBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use CanalTP\NavitiaIoCoreApiBundle\Entity\Key;
+use CanalTP\NavitiaIoCoreApiBundle\Entity\Token;
 
 class UserRestController extends Controller
 {
@@ -26,9 +26,9 @@ class UserRestController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $keys = $this->get('canal_tp_tyr.api')->getUserKeys($user->getId());
-        if (is_array($keys)) {
-            $user->setKeys(Key::createFromObjects($keys));
+        $tokens = $this->get('canal_tp_tyr.api')->getUserKeys($user->getId());
+        if (is_array($tokens)) {
+            $user->setTokens(Token::createFromObjects($tokens));
         }
 
         $data = $this->container->get('serializer')->serialize(
@@ -66,9 +66,9 @@ class UserRestController extends Controller
         );
 
         foreach ($pagination->getItems() as $user) {
-            $keys = $this->get('canal_tp_tyr.api')->getUserKeys($user->getId());
-            if (is_array($keys)) {
-                $user->setKeys(Key::createFromObjects($keys));
+            $tokens = $this->get('canal_tp_tyr.api')->getUserKeys($user->getId());
+            if (is_array($tokens)) {
+                $user->setTokens(Token::createFromObjects($tokens));
             }
         }
 

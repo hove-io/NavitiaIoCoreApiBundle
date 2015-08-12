@@ -4,7 +4,7 @@ namespace CanalTP\NavitiaIoCoreApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-class Key
+class Token
 {
     /**
      * @var int
@@ -17,21 +17,28 @@ class Key
     private $appName;
 
     /**
-     * @var datetime
+     * @var \DateTime
      */
     private $validUntil;
 
     /**
      * @var string
      */
-    private $key;
+    private $token;
 
-
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @param int $id
+     *
+     * @return Token
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -41,19 +48,19 @@ class Key
     /**
      * @return string
      */
-    public function getKey()
+    public function getToken()
     {
-        return $this->key;
+        return $this->token;
     }
 
     /**
-     * @param string $key
+     * @param string $token
      *
-     * @return User
+     * @return Token
      */
-    public function setKey($key)
+    public function setToken($token)
     {
-        $this->key = $key;
+        $this->token = $token;
 
         return $this;
     }
@@ -69,7 +76,7 @@ class Key
     /**
      * @param string $appName
      *
-     * @return Key
+     * @return Token
      */
     public function setAppName($appName)
     {
@@ -79,7 +86,7 @@ class Key
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
     public function getValidUntil()
     {
@@ -87,14 +94,46 @@ class Key
     }
 
     /**
-     * @param string $validUntil
+     * @param \DateTime $validUntil
      *
-     * @return Key
+     * @return Token
      */
-    public function setValidUntil($validUntil)
+    public function setValidUntil(\DateTime $validUntil)
     {
         $this->validUntil = $validUntil;
 
         return $this;
+    }
+
+    /**
+     * @param \stdClass $tokenData
+     *
+     * @return Token
+     */
+    public static function createFromObject(\stdClass $tokenData)
+    {
+        $token = new self();
+
+        return $token
+            ->setId($tokenData->id)
+            ->setToken($tokenData->token)
+            ->setAppName($tokenData->app_name)
+        ;
+    }
+
+    /**
+     * @param \stdClass $tokensData
+     *
+     * @return Token[]
+     */
+    public static function createFromObjects(array $tokensData)
+    {
+        $tokens = array();
+
+        foreach ($tokensData as $tokenData) {
+            $tokens []= self::createFromObject($tokenData);
+        }
+
+        return $tokens;
     }
 }

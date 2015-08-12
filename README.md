@@ -33,10 +33,10 @@ Updating **AppKernel.php**:
     }
 ```
 
-Tyr configuration
+Tyr api configuration
 
 ``` yml
-# Tyr api configuration
+# app/config.yml
 canal_tp_tyr:
     url:            %tyr_url%
     end_point_id:   2
@@ -49,9 +49,19 @@ parameters:
     tyr_url: http://tyr.dev.canaltp.fr/v0/
 ```
 
+Default configuration for FosUser and JmsSerializer:
+
+``` yml
+# app/config.yml
+imports:
+    - { resource: "@NavitiaIoCoreApiBundle/Resources/config/fos_rest.yml"}
+    - { resource: "@NavitiaIoCoreApiBundle/Resources/config/jms_serializer.yml"}
+```
+
 Mount api:
 
 ``` yml
+# app/routing.yml
 navitia_io_core_api_rest_user:
     type: rest
     resource: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/routing_rest.yml"

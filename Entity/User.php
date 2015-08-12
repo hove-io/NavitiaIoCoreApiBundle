@@ -6,7 +6,9 @@ use FOS\UserBundle\Entity\User as BaseUser;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\MappedSuperclass */
+/**
+ * @ORM\MappedSuperclass
+ */
 class User extends BaseUser
 {
     /**
@@ -43,12 +45,6 @@ class User extends BaseUser
      * @var Token[]
      */
     protected $tokens = array();
-
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * @return Token[]

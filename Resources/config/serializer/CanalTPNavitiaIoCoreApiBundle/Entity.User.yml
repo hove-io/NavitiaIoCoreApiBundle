@@ -9,5 +9,5 @@ CanalTP\NavitiaIoCoreApiBundle\Entity\User:
             expose: true
         projectType:
             expose: true
-        keys:
+        tokens:
             expose: true
