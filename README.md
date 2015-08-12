@@ -49,6 +49,15 @@ parameters:
     tyr_url: http://tyr.dev.canaltp.fr/v0/
 ```
 
+Mount api:
+
+``` yml
+navitia_io_core_api_rest_user:
+    type: rest
+    resource: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/routing_rest.yml"
+    prefix: /api
+```
+
 
 ## Usage
 
