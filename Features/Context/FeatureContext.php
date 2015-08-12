@@ -142,7 +142,7 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
         return $result;
     }
 
-    private function getParameter ($arg)
+    private function getParameter($arg)
     {
         return $this->kernel->getContainer()->getParameter($arg);
     }

@@ -46,7 +46,7 @@ class UserRestController extends Controller
      *
      * @throws NotFoundHttpException
      */
-    public function getUsersAction ($_format)
+    public function getUsersAction($_format)
     {
         $userManager = $this->get('fos_user.user_manager');
         $users = $userManager->findUsers();
