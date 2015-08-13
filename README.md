@@ -54,8 +54,8 @@ Default configuration for FosUser and JmsSerializer:
 ``` yml
 # app/config.yml
 imports:
-    - { resource: "@NavitiaIoCoreApiBundle/Resources/config/fos_rest.yml"}
-    - { resource: "@NavitiaIoCoreApiBundle/Resources/config/jms_serializer.yml"}
+    - { resource: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/fos_rest.yml"}
+    - { resource: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/jms_serializer.yml"}
 ```
 
 Mount api:
