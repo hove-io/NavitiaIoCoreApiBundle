@@ -16,14 +16,14 @@ class User extends BaseUser
      *
      * @ORM\Column(name="first_name", type="string")
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="last_name", type="string")
      */
-    private $lastName;
+    protected $lastName;
 
     /**
      * @var \DateTime
@@ -31,7 +31,7 @@ class User extends BaseUser
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime
@@ -39,12 +39,20 @@ class User extends BaseUser
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * @var Token[]
      */
     protected $tokens = array();
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * @return Token[]
