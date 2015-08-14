@@ -1,22 +1,21 @@
 <?php
-namespace CanalTP\NavitiaIoCoreApiBundle\Features\Context;
+namespace CanalTP\NavitiaIoRestBundle\Features\Context;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
+use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use Behat\MinkExtension\Context\MinkContext;
 use Behat\Behat\Tester\Exception\PendingException;
-use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
-use CanalTP\NavitiaIoCoreApiBundle\Entity\User;
+use Behat\MinkExtension\Context\MinkContext;
+use CanalTP\NavitiaIoUserBundle\Entity\User;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext extends MinkContext implements SnippetAcceptingContext, KernelAwareContext
 {
-
-    private $user;
+    private $users;
     private $response;
     private $kernel;
 
@@ -24,25 +23,26 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
     {
         $this->response = null;
         $this->kernel = null;
-        $this->user = null;
+        $this->users = array();
+    }
+
+    private function assert($isValid, $msg)
+    {
+        if (!$isValid)
+        {
+            throw new \Exception($msg);
+        }
     }
 
     /**
-     * @Then I have a JSON response
+     * @Then I have a :contentType response
      */
-    public function iHaveAJsonResponse()
+    public function iHaveAJsonResponse($contentType)
     {
-        return ($this->response->getHeader('Content-Type') == 'application/json');
-    }
-
-    /**
-     * @Then I have an array of users
-     */
-    public function iHaveAnArrayOfUsers()
-    {
-        $users = $this->response->json();
-
-        return (is_array($users) && count($users) > 0 && $this->checkUserInformation($users[0]));
+        $this->assert(
+            ($this->response->getHeader('Content-Type') == $contentType),
+            'Content-Type of this response is not correct'
+        );
     }
 
     /**
@@ -50,7 +50,10 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
      */
     public function responseStatusCodeShouldBe($httpCode)
     {
-        return ($this->response->getStatusCode() == $httpCode);
+        $this->assert(
+            ($this->response->getStatusCode() == $httpCode),
+            'Bad response code'
+        );
     }
 
     /**
@@ -58,26 +61,19 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
      */
     public function iHaveAUserObject()
     {
-        $user = $this->response->json();
+        $properties = array('username', 'first_name', 'last_name', 'email', 'project_type', 'keys');
+        $response = $this->response->json();
 
-        return (is_array($user) && $this->checkUserInformation($user));
-    }
-
-    private function createUser()
-    {
-        $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
-        $user = new User();
-
-        $user->setUsername($this->getParameter('user_behat_username'));
-        $user->setFirstName($this->getParameter('user_behat_firstname'));
-        $user->setLastName($this->getParameter('user_behat_lastname'));
-        $user->setPassword($this->getParameter('user_behat_password'));
-        $user->setEmail($this->getParameter('user_behat_email'));
-
-        $manager->persist($user);
-        $manager->flush();
-
-        return $user;
+        $this->assert(
+            is_array($response['users']),
+            'User object not found'
+        );
+        foreach ($properties as $property) {
+            $this->assert(
+                array_key_exists($property, $response['users']),
+                'User object exist but doesn\'t have ' . $property . ' property'
+            );
+        }
     }
 
     public function setKernel(KernelInterface $kernelInterface)
@@ -92,9 +88,12 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
     {
         $url = $this->getParameter('selenium_host') . $url;
         $client = $this->getSession()->getDriver()->getClient()->getClient();
-        $this->response = $client->get($url, array('auth' =>  array('user_test', 'password_test')));
+        $this->response = $client->get($url, array('auth' =>  array('toto', 'toto42')));
 
-        return (!empty($this->response));
+        $this->assert(
+            !empty($this->response),
+            'No Response found'
+        );
     }
 
     /**
@@ -106,15 +105,40 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
         $client = $this->getSession()->getDriver()->getClient()->getClient();
         $this->response = $client->get($url, array('auth' =>  array('user_test', 'password_tesst'), 'exceptions' => false));
 
-        return (!empty($this->response));
+        $this->assert(
+            !empty($this->response),
+            'No Response found'
+        );
     }
 
     /**
-     * @BeforeScenario
+     * @Given The following people exist:
      */
-    public function before(BeforeScenarioScope $scope)
+    public function theFollowingPeopleExist(TableNode $table)
     {
-        $this->user = $this->createUser();
+        $hash = $table->getHash();
+
+        foreach ($hash as $row) {
+            $this->users[$row['username']] = $this->createUser($row);
+        }
+    }
+
+    /**
+     * @Then I should have :number users
+     */
+    public function iShouldHaveUsers($number)
+    {
+        $response = $this->response->json();
+
+        $this->assert(
+            (array_key_exists('users', $response)),
+            '"users" property not found in response'
+        );
+
+        $this->assert(
+            (count($response['users']) == $number),
+            'Bad user number'
+        );
     }
 
     /**
@@ -122,28 +146,41 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
      */
     public function after(AfterScenarioScope $scope)
     {
-        $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
-
-        $manager->remove($this->user);
-        $manager->flush();
-    }
-
-    private function checkUserInformation(array $user)
-    {
-        $result = true;
-
-        if ($user['username'] != $this->getParameter('user_behat_username')
-            && $user['first_name'] != $this->getParameter('user_behat_firstname')
-            && $user['last_name'] != $this->getParameter('user_behat_lastname')
-            && $user['email'] != $this->getParameter('user_behat_email')
-        ) {
-            $result = false;
-        }
-        return $result;
+        $this->removeAllUsers();
     }
 
     private function getParameter($arg)
     {
         return $this->kernel->getContainer()->getParameter($arg);
+    }
+
+    private function removeAllUsers()
+    {
+        $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
+
+        foreach ($this->users as $user) {
+            $manager->remove($user);
+        }
+        $manager->flush();
+    }
+
+    private function createUser($data)
+    {
+        $em = $this->kernel->getContainer()->get('doctrine')->getManager();
+        $user = new User();
+
+        $user->setUsername($data['username']);
+        $user->setFirstname($data['first_name']);
+        $user->setLastName($data['last_name']);
+        $user->setPassword($data['password']);
+        $user->setEmail($data['email']);
+        $user->setProjectType($data['project_type']);
+        $user->setCompany($data['company']);
+        $user->setWebsite($data['website']);
+
+        $em->persist($user);
+        $em->flush();
+
+        return $user;
     }
 }
