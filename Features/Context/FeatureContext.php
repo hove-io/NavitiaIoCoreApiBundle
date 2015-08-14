@@ -28,8 +28,7 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
 
     private function assert($isValid, $msg)
     {
-        if (!$isValid)
-        {
+        if (!$isValid) {
             throw new \Exception($msg);
         }
     }
