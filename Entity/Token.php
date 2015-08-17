@@ -24,7 +24,7 @@ class Token
     /**
      * @var string
      */
-    private $token;
+    private $key;
 
     /**
      * @return int
@@ -48,19 +48,19 @@ class Token
     /**
      * @return string
      */
-    public function getToken()
+    public function getKey()
     {
-        return $this->token;
+        return $this->key;
     }
 
     /**
-     * @param string $token
+     * @param string $key
      *
      * @return Token
      */
-    public function setToken($token)
+    public function setKey($key)
     {
-        $this->token = $token;
+        $this->key = $key;
 
         return $this;
     }
@@ -116,7 +116,7 @@ class Token
 
         return $token
             ->setId($tokenData->id)
-            ->setToken($tokenData->token)
+            ->setKey($tokenData->token)
             ->setAppName($tokenData->app_name)
         ;
     }

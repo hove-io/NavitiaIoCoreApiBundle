@@ -5,7 +5,7 @@ CanalTP\NavitiaIoCoreApiBundle\Entity\Token:
     properties:
         id:
             expose: true
-        token:
+        key:
             expose: true
         appName:
             expose: true
