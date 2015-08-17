@@ -9,9 +9,9 @@
         "php": ">=5.2",
         "canalTP/tyr-bundle": "1.x",
         "friendsofsymfony/user-bundle": "~1.0",
-        "friendsofsymfony/rest-bundle": "^1.7",
+        "friendsofsymfony/rest-bundle": "~1.7",
         "jms/serializer-bundle": "1.0.0",
-        "jms/serializer": "^1.0",
+        "jms/serializer": "~1.0",
         "knplabs/knp-paginator-bundle": "~2.4.2",
         "gedmo/doctrine-extensions": "~2.4.4"
     },
