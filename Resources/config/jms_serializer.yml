@@ -1,0 +1,19 @@
+jms_serializer:
+    metadata:
+        debug: "%kernel.debug%"
+        file_cache:
+            dir: "%kernel.cache_dir%/serializer"
+        auto_detection: true
+        directories:
+            FOSUserBundle:
+                namespace_prefix: FOS\UserBundle
+                path: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/serializer/FOSUserBundle"
+            CanalTPNavitiaIoCoreApiBundle:
+                namespace_prefix: CanalTP\NavitiaIoCoreApiBundle
+                path: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/serializer/CanalTPNavitiaIoCoreApiBundle"
+            KnpPaginatorBundle:
+                namespace_prefix: Knp\Bundle\PaginatorBundle
+                path: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/serializer/KnpPaginatorBundle"
+            KnpPager:
+                namespace_prefix: Knp\Component\Pager
+                path: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/serializer/KnpPager"
