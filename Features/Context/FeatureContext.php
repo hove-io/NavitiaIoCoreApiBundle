@@ -1,5 +1,6 @@
 <?php
-namespace CanalTP\NavitiaIoRestBundle\Features\Context;
+
+namespace CanalTP\NavitiaIoCoreApiBundle\Features\Context;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
