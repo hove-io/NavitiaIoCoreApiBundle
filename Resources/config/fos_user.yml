@@ -1,0 +1,5 @@
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    service:
+        user_manager: navitia_io_core_api.user_manager

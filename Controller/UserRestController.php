@@ -2,6 +2,7 @@
 
 namespace CanalTP\NavitiaIoCoreApiBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -46,10 +47,18 @@ class UserRestController extends Controller
      *
      * @throws NotFoundHttpException
      */
-    public function getUsersAction($_format)
+    public function getUsersAction(Request $request, $_format)
     {
         $userManager = $this->get('fos_user.user_manager');
-        $users = $userManager->findUsers();
+
+        if ($request->query->has('start_date') && $request->query->has('end_date')) {
+            $users = $userManager->findUsersBetweenDates(
+                new \DateTime($request->query->get('start_date')),
+                new \DateTime($request->query->get('end_date'))
+            );
+        } else {
+            $users = $userManager->findUsers();
+        }
 
         if (!is_array($users)) {
             throw $this->createNotFoundException();

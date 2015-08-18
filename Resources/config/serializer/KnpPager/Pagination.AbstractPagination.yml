@@ -11,5 +11,6 @@ Knp\Component\Pager\Pagination\AbstractPagination:
                 users
         customParameters:
             expose: true
+            xml_key_value_pairs: true
             serialized_name:
                 pagination

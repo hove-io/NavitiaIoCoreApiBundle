@@ -49,13 +49,21 @@ parameters:
     tyr_url: http://tyr.dev.canaltp.fr/v0/
 ```
 
-Default configuration for FosUser and JmsSerializer:
+Default configurations for FosUser and JmsSerializer:
 
 ``` yml
 # app/config.yml
 imports:
+    - { resource: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/fos_user.yml"}
     - { resource: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/fos_rest.yml"}
     - { resource: "@CanalTPNavitiaIoCoreApiBundle/Resources/config/jms_serializer.yml"}
+```
+
+Configuration for FOSUser:
+
+``` yml
+fos_user:
+    user_class: Acme\AppBundle\Entity\User # your user class
 ```
 
 Mount api:
@@ -89,7 +97,8 @@ use CanalTP\NavitiaIoCoreApiBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\MappedSuperclass
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="CanalTP\NavitiaIoCoreApiBundle\Entity\UserRepository")
  */
 class User extends BaseUser
 {
