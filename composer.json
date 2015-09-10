@@ -7,7 +7,7 @@
     "keywords": ["symfony", "tyr", "user", "rest", "api"],
     "require": {
         "php": ">=5.2",
-        "canalTP/tyr-bundle": "dev-master",
+        "canaltp/tyr-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "~1.0",
         "friendsofsymfony/rest-bundle": "~1.7",
         "jms/serializer-bundle": "1.0.0",
@@ -38,10 +38,6 @@
         {
             "type": "vcs",
             "url": "https://github.com/james75/Behat"
-        },
-        {
-            "type": "composer",
-            "url": "http://packagist.canaltp.fr"
         }
     ],
     "autoload": {
