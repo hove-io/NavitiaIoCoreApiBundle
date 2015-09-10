@@ -29,10 +29,6 @@
     "repositories": [
         {
             "type": "git",
-            "url": "git@github.com:CanalTP/NmpAcceptanceTestBundle.git"
-        },
-        {
-            "type": "git",
             "url": "git@github.com:CanalTP/TyrBundle.git"
         },
         {
