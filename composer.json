@@ -7,7 +7,7 @@
     "keywords": ["symfony", "tyr", "user", "rest", "api"],
     "require": {
         "php": ">=5.2",
-        "canaltp/tyr-bundle": "dev-master",
+        "canaltp/tyr-bundle": "~1.1",
         "friendsofsymfony/user-bundle": "~1.0",
         "friendsofsymfony/rest-bundle": "~1.7",
         "jms/serializer-bundle": "1.0.0",
@@ -28,8 +28,8 @@
     },
     "repositories": [
         {
-            "type": "git",
-            "url": "git@github.com:CanalTP/TyrBundle.git"
+            "type": "composer",
+            "url": "http://packagist.canaltp.fr"
         },
         {
             "type": "vcs",
