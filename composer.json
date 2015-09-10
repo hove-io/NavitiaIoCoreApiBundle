@@ -32,6 +32,10 @@
             "url": "git@github.com:CanalTP/NmpAcceptanceTestBundle.git"
         },
         {
+            "type": "git",
+            "url": "git@github.com:CanalTP/TyrBundle.git"
+        },
+        {
             "type": "vcs",
             "url": "https://github.com/james75/Behat"
         },
