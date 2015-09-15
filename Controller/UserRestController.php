@@ -50,14 +50,18 @@ class UserRestController extends Controller
     public function getUsersAction(Request $request, $_format)
     {
         $userManager = $this->get('fos_user.user_manager');
+        $sortField = $request->query->getAlpha('sort_by', 'id');
+        $sortOrder = $request->query->getAlpha('sort_order', 'asc');
 
         if ($request->query->has('start_date') && $request->query->has('end_date')) {
             $users = $userManager->findUsersBetweenDates(
                 new \DateTime($request->query->get('start_date')),
-                new \DateTime($request->query->get('end_date'))
+                new \DateTime($request->query->get('end_date')),
+                $sortField,
+                $sortOrder
             );
         } else {
-            $users = $userManager->findUsers();
+            $users = $userManager->findSortedUsers($sortField, $sortOrder);
         }
 
         if (!is_array($users)) {
@@ -65,7 +69,11 @@ class UserRestController extends Controller
         }
 
         $paginator = $this->container->get('knp_paginator');
-        $pagination = $paginator->paginate($users);
+        $pagination = $paginator->paginate(
+            $users,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('count', 10)
+        );
         $pagination->setCustomParameters(
             array(
                 'total_count'       => $pagination->getTotalItemCount(),
