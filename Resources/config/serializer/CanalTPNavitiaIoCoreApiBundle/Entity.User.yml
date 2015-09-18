@@ -11,3 +11,7 @@ CanalTP\NavitiaIoCoreApiBundle\Entity\User:
             expose: true
         tokens:
             expose: true
+        company:
+            expose: true
+        createdAt:
+            expose: true
