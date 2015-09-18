@@ -76,7 +76,7 @@ class UserRestController extends Controller
         );
         $pagination->setCustomParameters(
             array(
-                'total_count'       => $pagination->getTotalItemCount(),
+                'total_result'      => $pagination->getTotalItemCount(),
                 'start_page'        => $pagination->getCurrentPageNumber(),
                 'items_per_page'    => $pagination->getItemNumberPerPage()
             )
