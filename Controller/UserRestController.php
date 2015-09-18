@@ -67,7 +67,7 @@ class UserRestController extends Controller
         $paginator = $this->container->get('knp_paginator');
         $pagination = $paginator->paginate(
             $users,
-            $request->query->get('page', 1),
+            $request->query->get('page', 0),
             $request->query->get('count', 10)
         );
         $pagination->setCustomParameters(
