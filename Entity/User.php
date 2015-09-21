@@ -42,20 +42,6 @@ class User extends BaseUser
     protected $updatedAt;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="company", type="string")
-     */
-    protected $company;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="project_type", type="string")
-     */
-    protected $projectType;
-
-    /**
      * @var Token[]
      */
     protected $tokens = array();
@@ -66,38 +52,6 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-    }
-
-    /**
-     * @return string
-     */
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
-    /**
-     * @param string $company
-     */
-    public function setCompany($company)
-    {
-        $this->company = $company;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProjectType()
-    {
-        return $this->projectType;
-    }
-
-    /**
-     * @param string $projectType
-     */
-    public function setProjectType($projectType)
-    {
-        $this->projectType = $projectType;
     }
 
     /**
