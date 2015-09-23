@@ -44,7 +44,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="company", type="string")
+     * @ORM\Column(name="company", type="string", nullable=true)
      */
     protected $company;
 
