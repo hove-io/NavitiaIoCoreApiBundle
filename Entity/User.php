@@ -54,7 +54,7 @@ class User extends BaseUser
     protected $tokens = array();
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -104,7 +104,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set firstName
+     * Set firstName.
      *
      * @param string $firstName
      *
@@ -118,7 +118,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get firstName
+     * Get firstName.
      *
      * @return string
      */
@@ -128,7 +128,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set lastName
+     * Set lastName.
      *
      * @param string $lastName
      *
@@ -142,7 +142,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get lastName
+     * Get lastName.
      *
      * @return string
      */
@@ -152,7 +152,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -166,7 +166,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -180,26 +180,26 @@ class User extends BaseUser
     }
 
     /**
-    * Gets the value of company.
-    *
-    * @return string
-    */
+     * Gets the value of company.
+     *
+     * @return string
+     */
     public function getCompany()
     {
         return $this->company;
     }
 
     /**
-    * Sets the value of company.
-    *
-    * @param string $company the company
-    *
-    * @return self
-    */
+     * Sets the value of company.
+     *
+     * @param string $company the company
+     *
+     * @return self
+     */
     public function setCompany($company)
     {
         $this->company = $company;
 
         return $this;
     }
-    }
+}

@@ -2,8 +2,6 @@
 
 namespace CanalTP\NavitiaIoCoreApiBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 class Token
 {
     /**
@@ -42,6 +40,7 @@ class Token
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -131,7 +130,7 @@ class Token
         $tokens = array();
 
         foreach ($tokensData as $tokenData) {
-            $tokens []= self::createFromObject($tokenData);
+            $tokens [] = self::createFromObject($tokenData);
         }
 
         return $tokens;
