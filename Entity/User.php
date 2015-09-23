@@ -42,6 +42,13 @@ class User extends BaseUser
     protected $updatedAt;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="company", type="string")
+     */
+    protected $company;
+
+    /**
      * @var Token[]
      */
     protected $tokens = array();
@@ -171,4 +178,28 @@ class User extends BaseUser
 
         return $this;
     }
-}
+
+    /**
+    * Gets the value of company.
+    *
+    * @return string
+    */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+    * Sets the value of company.
+    *
+    * @param string $company the company
+    *
+    * @return self
+    */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+    }
