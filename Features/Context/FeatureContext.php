@@ -61,7 +61,7 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
      */
     public function iHaveAUserObject()
     {
-        $properties = array('username', 'first_name', 'last_name', 'email', 'project_type', 'keys');
+        $properties = array('username', 'first_name', 'last_name', 'email', 'keys');
         $response = $this->response->json();
 
         $this->assert(
@@ -179,7 +179,17 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
         $user->setWebsite($data['website']);
 
         $em->persist($user);
-        $em->flush();
+
+        try {
+            $em->flush();
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            // Mocked user already exists.
+            // Re-open $em
+            if (!$em->isOpen()) {
+                $this->kernel->getContainer()->get('doctrine')->resetManager();
+                $em = $this->kernel->getContainer()->get('doctrine')->getManager();
+            }
+        }
 
         return $user;
     }

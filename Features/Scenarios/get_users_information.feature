@@ -1,11 +1,11 @@
 Feature: Get user's information
     Background:
         Given The following people exist:
-        | username   | first_name | last_name  | password  | email                 | project_type  | company    | website               |
-        | jmaulny    | Julien     | Maulny     | tomate    | jmaulny@canaltp.fr    | profesional   | myCompanyA | http://mycompanya.com |
-        | lroche     | Ludovic    | Roche      | concombre | lroche@canaltp.fr     | personal      | myCompanyB | http://mycompanyb.com |
-        | tnoury     | Thomas     | Noury      | 123456    | tnoury@canaltp.fr     | profesional   | myCompanyC | http://mycompanyc.com |
-        | rabikhalil | Rémy       | Abi Khalil | aubergine | rabikhalil@canaltp.fr | personal      | myCompanyD | http://mycompanyd.com |
+        | username   | first_name | last_name  | password  | email                 | company    |
+        | jmaulny    | Julien     | Maulny     | tomate    | jmaulny@canaltp.fr    | myCompanyA |
+        | lroche     | Ludovic    | Roche      | concombre | lroche@canaltp.fr     | myCompanyB |
+        | tnoury     | Thomas     | Noury      | 123456    | tnoury@canaltp.fr     | myCompanyC |
+        | rabikhalil | Rémy       | Abi Khalil | aubergine | rabikhalil@canaltp.fr | myCompanyD |
     Scenario: Check security
         When I request "/api/users" without authentification
         Then Response status code should be 401
