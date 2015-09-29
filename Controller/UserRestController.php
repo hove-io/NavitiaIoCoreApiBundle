@@ -52,6 +52,7 @@ class UserRestController extends Controller
         $userManager = $this->get('fos_user.user_manager');
         $sortField = $request->query->getAlpha('sort_by', 'id');
         $sortOrder = $request->query->getAlpha('sort_order', 'asc');
+        $count = $request->query->getInt('count', 10);
 
         if ($request->query->has('start_date') && $request->query->has('end_date')) {
             $users = $userManager->findUsersBetweenDates(
@@ -72,7 +73,7 @@ class UserRestController extends Controller
         $pagination = $paginator->paginate(
             $users,
             $request->query->getInt('page', 1),
-            $request->query->getInt('count', 10)
+            ($count > 0 ? $count : 1)
         );
         $pagination->setCustomParameters(
             array(
