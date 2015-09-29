@@ -1,5 +1,6 @@
 /vendor
 /bin
+/nbproject
 *~
 phpunit.xml
 composer.lock
