@@ -83,13 +83,6 @@ class UserRestController extends Controller
             )
         );
 
-        foreach ($pagination->getItems() as $user) {
-            $tokens = $this->get('canal_tp_tyr.api')->getUserKeys($user->getId());
-            if (is_array($tokens)) {
-                $user->setTokens(Token::createFromObjects($tokens));
-            }
-        }
-
         $data = $this->container->get('serializer')->serialize(
             $pagination,
             $_format
