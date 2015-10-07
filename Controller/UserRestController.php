@@ -11,17 +11,17 @@ use CanalTP\NavitiaIoCoreApiBundle\Entity\Token;
 class UserRestController extends Controller
 {
     /**
-     * @param string $username
+     * @param string $id
      * @param string $_format
      *
      * @return Response
      *
      * @throws NotFoundHttpException
      */
-    public function getUserAction($username, $_format)
+    public function getUserAction($id, $_format)
     {
         $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findUserByUsername($username);
+        $user = $userManager->findUserBy(['id' => $id]);
 
         if (!is_object($user)) {
             throw $this->createNotFoundException();
