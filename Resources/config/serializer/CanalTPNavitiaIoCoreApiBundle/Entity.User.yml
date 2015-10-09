@@ -15,3 +15,5 @@ CanalTP\NavitiaIoCoreApiBundle\Entity\User:
             expose: true
         createdAt:
             expose: true
+        tyrId:
+            expose: true
