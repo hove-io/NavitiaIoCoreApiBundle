@@ -54,6 +54,13 @@ class User extends BaseUser
     protected $tokens = array();
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="tyr_id", type="integer", nullable=true, unique=true)
+     */
+    protected $tyrId;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -199,6 +206,30 @@ class User extends BaseUser
     public function setCompany($company)
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of tyrId.
+     *
+     * @return int
+     */
+    public function getTyrId()
+    {
+        return $this->tyrId;
+    }
+
+    /**
+     * Set tyrId.
+     *
+     * @param int $tyrId
+     *
+     * @return User
+     */
+    public function setTyrId($tyrId)
+    {
+        $this->tyrId = $tyrId;
 
         return $this;
     }
