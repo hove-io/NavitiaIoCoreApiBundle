@@ -13,6 +13,8 @@ CanalTP\NavitiaIoCoreApiBundle\Entity\User:
             expose: false
         company:
             expose: true
+        website:
+            expose: true
         createdAt:
             expose: true
         tyrId:
