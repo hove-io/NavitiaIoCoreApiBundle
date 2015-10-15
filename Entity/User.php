@@ -49,6 +49,13 @@ class User extends BaseUser
     protected $company;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="website", type="string", nullable=true)
+     */
+    protected $website;
+
+    /**
      * @var Token[]
      */
     protected $tokens = array();
@@ -230,6 +237,30 @@ class User extends BaseUser
     public function setTyrId($tyrId)
     {
         $this->tyrId = $tyrId;
+
+        return $this;
+    }
+
+    /**
+    * Gets the value of website.
+    *
+    * @return string
+    */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+    * Sets the value of website.
+    *
+    * @param string $website the website
+    *
+    * @return self
+    */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
 
         return $this;
     }
