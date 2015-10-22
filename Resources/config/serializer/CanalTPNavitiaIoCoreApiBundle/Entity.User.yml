@@ -10,8 +10,12 @@ CanalTP\NavitiaIoCoreApiBundle\Entity\User:
         projectType:
             expose: true
         tokens:
-            expose: true
+            expose: false
         company:
             expose: true
+        website:
+            expose: true
         createdAt:
+            expose: true
+        tyrId:
             expose: true

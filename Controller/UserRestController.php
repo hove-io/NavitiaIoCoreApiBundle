@@ -11,17 +11,17 @@ use CanalTP\NavitiaIoCoreApiBundle\Entity\Token;
 class UserRestController extends Controller
 {
     /**
-     * @param string $username
+     * @param string $id
      * @param string $_format
      *
      * @return Response
      *
      * @throws NotFoundHttpException
      */
-    public function getUserAction($username, $_format)
+    public function getUserAction($id, $_format)
     {
         $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findUserByUsername($username);
+        $user = $userManager->findUserBy(['id' => $id]);
 
         if (!is_object($user)) {
             throw $this->createNotFoundException();
@@ -52,6 +52,7 @@ class UserRestController extends Controller
         $userManager = $this->get('fos_user.user_manager');
         $sortField = $request->query->getAlpha('sort_by', 'id');
         $sortOrder = $request->query->getAlpha('sort_order', 'asc');
+        $count = $request->query->getInt('count', 10);
 
         if ($request->query->has('start_date') && $request->query->has('end_date')) {
             $users = $userManager->findUsersBetweenDates(
@@ -72,7 +73,7 @@ class UserRestController extends Controller
         $pagination = $paginator->paginate(
             $users,
             $request->query->getInt('page', 1),
-            $request->query->getInt('count', 10)
+            ($count > 0 ? $count : 1)
         );
         $pagination->setCustomParameters(
             array(
@@ -81,13 +82,6 @@ class UserRestController extends Controller
                 'items_per_page'    => $pagination->getItemNumberPerPage()
             )
         );
-
-        foreach ($pagination->getItems() as $user) {
-            $tokens = $this->get('canal_tp_tyr.api')->getUserKeys($user->getId());
-            if (is_array($tokens)) {
-                $user->setTokens(Token::createFromObjects($tokens));
-            }
-        }
 
         $data = $this->container->get('serializer')->serialize(
             $pagination,
