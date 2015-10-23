@@ -4,6 +4,7 @@ namespace CanalTP\NavitiaIoCoreApiBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use CanalTP\NavitiaIoCoreApiBundle\Entity\Token;
@@ -89,5 +90,59 @@ class UserRestController extends Controller
         );
 
         return new Response($data);
+    }
+
+    /**
+     * Update some fields of an user.
+     *
+     * @param Request $request
+     * @param int $id
+     * @param string $_format
+     */
+    public function patchUserAction(Request $request, $id, $_format)
+    {
+        $userManager = $this->get('fos_user.user_manager');
+        $serializer = $this->get('serializer');
+
+        $user = $userManager->findUserBy(['id' => $id]);
+
+        $this->patchEntity($user, $serializer->deserialize($request->getContent(), 'array', $_format), [
+            'firstName',
+            'lastName',
+            'website',
+            'company',
+        ]);
+
+        $userManager->updateUser($user);
+    }
+
+    /**
+     * Patch an entity with fields.
+     *
+     * @param mixed $baseEntity
+     * @param array $patchFields
+     */
+    private function patchEntity($baseEntity, $patchFields, array $whitelist)
+    {
+        $processed = [];
+
+        foreach ($whitelist as $field) {
+            if (isset($patchFields[$field])) {
+                if (method_exists($baseEntity, 'set'.$field)) {
+                    $baseEntity->{'set'.$field}($patchFields[$field]);
+                    $processed []= $field;
+                } else {
+                    throw new UnprocessableEntityHttpException('Setter "set'.$field.'" not existing for this entity.');
+                }
+            }
+        }
+
+        $unprocessed = array_diff(array_keys($patchFields), $processed);
+
+        if (count($unprocessed) > 0) {
+            throw new UnprocessableEntityHttpException(
+                'Field(s) '.implode(', ', $unprocessed).' cannot be updated or no setter.'
+            );
+        }
     }
 }

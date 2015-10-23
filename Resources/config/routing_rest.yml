@@ -1,7 +1,14 @@
 api_get_user:
     pattern: /users/{id}.{_format}
     defaults: { _controller: CanalTPNavitiaIoCoreApiBundle:UserRest:getUser, _format: 'json' }
+    methods:  [GET]
+
+api_patch_user:
+    pattern: /users/{id}.{_format}
+    defaults: { _controller: CanalTPNavitiaIoCoreApiBundle:UserRest:patchUser, _format: 'json' }
+    methods:  [POST, PATCH]
 
 api_get_users:
     pattern: /users.{_format}
     defaults: { _controller: CanalTPNavitiaIoCoreApiBundle:UserRest:getUsers, _format: 'json' }
+    methods:  [GET]
