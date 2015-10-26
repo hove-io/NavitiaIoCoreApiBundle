@@ -9,7 +9,6 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\MinkExtension\Context\MinkContext;
-use CanalTP\NavitiaIoUserBundle\Entity\User;
 
 /**
  * Defines application features from the specific context.
@@ -164,23 +163,33 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
         $manager->flush();
     }
 
+    /**
+     * @return \CanalTP\NavitiaIoCoreApiBundle\Entity\User
+     */
     private function createUser($data)
     {
         $em = $this->kernel->getContainer()->get('doctrine')->getManager();
-        $user = new User();
+        $user = $this->createUserInstance();
 
         $user->setUsername($data['username']);
         $user->setFirstname($data['first_name']);
         $user->setLastName($data['last_name']);
         $user->setPassword($data['password']);
         $user->setEmail($data['email']);
-        $user->setProjectType($data['project_type']);
         $user->setCompany($data['company']);
-        $user->setWebsite($data['website']);
 
         $em->persist($user);
         $em->flush();
 
         return $user;
+    }
+
+    /**
+     * @return \CanalTP\NavitiaIoCoreApiBundle\Entity\User
+     */
+    private function createUserInstance()
+    {
+        $userClass = $this->kernel->getContainer()->getParameter('fos_user.model.user.class');
+        return new $userClass();
     }
 }
