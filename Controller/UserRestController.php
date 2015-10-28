@@ -127,7 +127,7 @@ class UserRestController extends Controller
         $processed = [];
 
         foreach ($whitelist as $field) {
-            if (isset($patchFields[$field])) {
+            if (array_key_exists($field, $patchFields)) {
                 if (method_exists($baseEntity, 'set'.$field)) {
                     $baseEntity->{'set'.$field}($patchFields[$field]);
                     $processed []= $field;
