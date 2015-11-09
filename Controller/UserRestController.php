@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use CanalTP\NavitiaIoCoreApiBundle\Entity\Token;
+use CanalTP\NavitiaIoCoreApiBundle\Entity\BillingPlan;
 
 class UserRestController extends Controller
 {
@@ -40,7 +41,7 @@ class UserRestController extends Controller
 
                 if (property_exists($userApiTyr, 'billing_plan')) {
                     if (is_object($userApiTyr->billing_plan)) {
-                        $user->setBillingPlan($userApiTyr->billing_plan->name);
+                        $user->setBillingPlan(BillingPlan::createFromObject($userApiTyr->billing_plan));
                     }
                 }
             }

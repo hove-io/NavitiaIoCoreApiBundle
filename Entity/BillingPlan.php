@@ -153,4 +153,22 @@ class BillingPlan
 
         return $this;
     }
+
+    /**
+     * @param \stdClass $billingPlanData
+     *
+     * @return BillingPlan
+     */
+    public static function createFromObject(\stdClass $billingPlanData)
+    {
+        $billingPlan = new self();
+
+        return $billingPlan
+            ->setId($billingPlanData->id)
+            ->setName($billingPlanData->name)
+            ->setMaxObjectCount($billingPlanData->max_object_count)
+            ->setMaxRequestCount($billingPlanData->max_request_count)
+            ->setDefault($billingPlanData->default)
+        ;
+    }
 }
