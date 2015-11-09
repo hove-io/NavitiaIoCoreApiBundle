@@ -23,14 +23,30 @@ class UserRestController extends Controller
     {
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserBy(['id' => $id]);
+        $translator = $this->get('translator');
 
         if (!is_object($user)) {
             throw $this->createNotFoundException();
         }
 
-        $tokens = $this->get('canal_tp_tyr.api')->getUserKeys($user->getId());
-        if (is_array($tokens)) {
-            $user->setTokens(Token::createFromObjects($tokens));
+        if (!is_null($user->getTyrId())) {
+            $userApiTyr = $this->get('canal_tp_tyr.api')->getUserById($user->getTyrId());
+
+            if (!is_null($userApiTyr)) {
+                if (is_array($userApiTyr->keys)) {
+                    $user->setTokens(Token::createFromObjects($userApiTyr->keys));
+                }
+
+                if (is_object($userApiTyr->billing_plan)) {
+                    $user->setBillingPlan(
+                        $translator->trans(
+                            'api.billing_plan.'. $userApiTyr->billing_plan->name,
+                            [],
+                            'user'
+                        )
+                    );
+                }
+            }
         }
 
         $data = $this->container->get('serializer')->serialize(
