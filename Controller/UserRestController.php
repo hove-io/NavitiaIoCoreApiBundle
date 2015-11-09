@@ -23,7 +23,6 @@ class UserRestController extends Controller
     {
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserBy(['id' => $id]);
-        $translator = $this->get('translator');
 
         if (!is_object($user)) {
             throw $this->createNotFoundException();
@@ -38,13 +37,7 @@ class UserRestController extends Controller
                 }
 
                 if (is_object($userApiTyr->billing_plan)) {
-                    $user->setBillingPlan(
-                        $translator->trans(
-                            'api.billing_plan.'. $userApiTyr->billing_plan->name,
-                            [],
-                            'user'
-                        )
-                    );
+                    $user->setBillingPlan($userApiTyr->billing_plan->name);
                 }
             }
         }
