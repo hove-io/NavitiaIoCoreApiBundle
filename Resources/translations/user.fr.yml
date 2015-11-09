@@ -1,7 +1,0 @@
-api:
-    billing_plan:
-        nav_dev: Free (3000 requêtes max)
-        nav_ent: Premium (requêtes illimitées)
-        nav_ctp: Client interne (requêtes illimitées)
-        sncf_dev: Développeur (3000 requêtes max)
-        sncf_ent: Entreprise (requêtes illimitées)
