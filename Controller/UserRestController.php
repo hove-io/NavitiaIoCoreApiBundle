@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use CanalTP\NavitiaIoCoreApiBundle\Entity\Token;
+use CanalTP\NavitiaIoCoreApiBundle\Entity\BillingPlan;
 
 class UserRestController extends Controller
 {
@@ -28,9 +29,19 @@ class UserRestController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $tokens = $this->get('canal_tp_tyr.api')->getUserKeys($user->getId());
-        if (is_array($tokens)) {
-            $user->setTokens(Token::createFromObjects($tokens));
+        if (!is_null($user->getTyrId())) {
+            $userApiTyr = $this->get('canal_tp_tyr.api')->getUserById($user->getTyrId());
+
+            if (!is_null($userApiTyr) && property_exists($userApiTyr, 'keys') && is_array($userApiTyr->keys)) {
+                $user->setTokens(Token::createFromObjects($userApiTyr->keys));
+            }
+
+            if (!is_null($userApiTyr)
+                && property_exists($userApiTyr, 'billing_plan')
+                && is_object($userApiTyr->billing_plan)
+            ) {
+                $user->setBillingPlan(BillingPlan::createFromObject($userApiTyr->billing_plan));
+            }
         }
 
         $data = $this->container->get('serializer')->serialize(

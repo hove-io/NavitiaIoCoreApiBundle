@@ -58,7 +58,12 @@ class User extends BaseUser
     /**
      * @var Token[]
      */
-    protected $tokens = array();
+    protected $tokens = [];
+
+    /**
+     * @var BillingPlan
+     */
+    protected $billingPlan;
 
     /**
      * @var int
@@ -103,6 +108,28 @@ class User extends BaseUser
     public function addToken(Token $token)
     {
         $this->tokens[] = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get BillingPlan
+     *
+     * @return User
+     */
+    public function getBillingPlan()
+    {
+        return $this->billingPlan;
+    }
+
+    /**
+     * @param BillingPlan $billingPlan
+     *
+     * @return User
+     */
+    public function setBillingPlan($billingPlan)
+    {
+        $this->billingPlan = $billingPlan;
 
         return $this;
     }

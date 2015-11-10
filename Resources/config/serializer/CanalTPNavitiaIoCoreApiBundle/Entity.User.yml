@@ -19,3 +19,5 @@ CanalTP\NavitiaIoCoreApiBundle\Entity\User:
             expose: true
         tyrId:
             expose: true
+        billingPlan:
+            expose: true
