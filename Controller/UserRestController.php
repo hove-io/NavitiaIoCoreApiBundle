@@ -32,18 +32,15 @@ class UserRestController extends Controller
         if (!is_null($user->getTyrId())) {
             $userApiTyr = $this->get('canal_tp_tyr.api')->getUserById($user->getTyrId());
 
-            if (!is_null($userApiTyr)) {
-                if (property_exists($userApiTyr, 'keys')) {
-                    if (is_array($userApiTyr->keys)) {
-                        $user->setTokens(Token::createFromObjects($userApiTyr->keys));
-                    }
-                }
+            if (!is_null($userApiTyr) && property_exists($userApiTyr, 'keys') && is_array($userApiTyr->keys)) {
+                $user->setTokens(Token::createFromObjects($userApiTyr->keys));
+            }
 
-                if (property_exists($userApiTyr, 'billing_plan')) {
-                    if (is_object($userApiTyr->billing_plan)) {
-                        $user->setBillingPlan(BillingPlan::createFromObject($userApiTyr->billing_plan));
-                    }
-                }
+            if (!is_null($userApiTyr)
+                && property_exists($userApiTyr, 'billing_plan')
+                && is_object($userApiTyr->billing_plan)
+            ) {
+                $user->setBillingPlan(BillingPlan::createFromObject($userApiTyr->billing_plan));
             }
         }
 
