@@ -122,7 +122,7 @@ class UserRestController extends Controller
             $billingPlan = $patchFields['billingPlan'];
             unset($patchFields['billingPlan']);
 
-            $this->get('canal_tp_tyr.api')->updateUser([
+            $this->get('canal_tp_tyr.api')->updateUser($user->getTyrId(), [
                 'billing_plan_id' => $billingPlan->id,
             ]);
         }
