@@ -116,8 +116,18 @@ class UserRestController extends Controller
         $serializer = $this->get('serializer');
 
         $user = $userManager->findUserBy(['id' => $id]);
+        $patchFields = $serializer->deserialize($request->getContent(), 'array', $_format);
 
-        $this->patchEntity($user, $serializer->deserialize($request->getContent(), 'array', $_format), [
+        if (isset($patchFields['billingPlan'])) {
+            $billingPlan = $patchFields['billingPlan'];
+            unset($patchFields['billingPlan']);
+
+            $this->get('canal_tp_tyr.api')->updateUser([
+                'billing_plan_id' => $billingPlan->id,
+            ]);
+        }
+
+        $this->patchEntity($user, $patchFields, [
             'firstName',
             'lastName',
             'website',
