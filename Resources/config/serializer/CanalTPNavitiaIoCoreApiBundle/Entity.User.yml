@@ -21,3 +21,5 @@ CanalTP\NavitiaIoCoreApiBundle\Entity\User:
             expose: true
         billingPlan:
             expose: true
+        comment:
+            expose: true
