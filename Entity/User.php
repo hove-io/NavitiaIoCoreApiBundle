@@ -73,6 +73,13 @@ class User extends BaseUser
     protected $tyrId;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="comment", type="text", nullable=true)
+     */
+    protected $comment;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -288,6 +295,29 @@ class User extends BaseUser
     public function setWebsite($website)
     {
         $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Sets the walue of comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Gets the value of comment
+     *
+     * @param string $comment
+     * @return self
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
 
         return $this;
     }

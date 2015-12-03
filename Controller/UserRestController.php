@@ -132,6 +132,7 @@ class UserRestController extends Controller
             'lastName',
             'website',
             'company',
+            'comment',
         ]);
 
         $userManager->updateUser($user);
