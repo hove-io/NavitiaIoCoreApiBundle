@@ -118,10 +118,10 @@ class User extends BaseUser
 
 ## Contributors
 
-1. Thomas Noury - thomas.noury@canaltp.fr
-2. Julien Maulny - julien.maulny@canaltp.fr
-3. Ludovic Roche - ludovic.roche@canaltp.fr
-4. Rémy Abi Khalil - remy.abi-khalil@canaltp.fr
+1. Thomas Noury - <https://github.com/is06>
+2. Julien Maulny - <https://github.com/alcalyn>
+3. Ludovic Roche - <https://github.com/lrocheWB>
+4. Rémy Abi Khalil - <https://github.com/Netmisa>
 
 
 ## License
