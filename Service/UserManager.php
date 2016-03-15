@@ -53,7 +53,7 @@ class UserManager extends BaseUserManager
         $user->setCompany($registerFolder->getOrganization());
         $user->setActivity($registerFolder->getActivity());
         $user->setCountry($registerFolder->getCountry());
-        $user->setNewsLetterSubscribe($registerFolder->getNewsLetterSubscribe());
+        $user->setNewsletter($registerFolder->getNewsletter());
 
         $this->tyrSynchronization->synchronizeTyr($user);
         $this->updateUser($user);
