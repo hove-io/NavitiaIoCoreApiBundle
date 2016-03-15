@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 class CanalTPNavitiaIoCoreApiBundle extends Bundle
 {
     /**
-     * {@InheritDoc}
+     * {@inheritdoc}
      */
     public function getParent()
     {

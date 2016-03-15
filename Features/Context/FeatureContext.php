@@ -6,7 +6,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\MinkExtension\Context\MinkContext;
 
@@ -70,7 +69,7 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
         foreach ($properties as $property) {
             $this->assert(
                 array_key_exists($property, $response['users']),
-                'User object exist but doesn\'t have ' . $property . ' property'
+                'User object exist but doesn\'t have '.$property.' property'
             );
         }
     }
@@ -85,9 +84,9 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
      */
     public function iRequest($url)
     {
-        $url = $this->getParameter('selenium_host') . $url;
+        $url = $this->getParameter('selenium_host').$url;
         $client = $this->getSession()->getDriver()->getClient()->getClient();
-        $this->response = $client->get($url, array('auth' =>  array('toto', 'toto42')));
+        $this->response = $client->get($url, array('auth' => array('toto', 'toto42')));
 
         $this->assert(
             !empty($this->response),
@@ -100,9 +99,9 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
      */
     public function iRequestWithoutAuthentification($url)
     {
-        $url = $this->getParameter('selenium_host') . $url;
+        $url = $this->getParameter('selenium_host').$url;
         $client = $this->getSession()->getDriver()->getClient()->getClient();
-        $this->response = $client->get($url, array('auth' =>  array('user_test', 'password_tesst'), 'exceptions' => false));
+        $this->response = $client->get($url, array('auth' => array('user_test', 'password_tesst'), 'exceptions' => false));
 
         $this->assert(
             !empty($this->response),
@@ -190,6 +189,7 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext, Ker
     private function createUserInstance()
     {
         $userClass = $this->kernel->getContainer()->getParameter('fos_user.model.user.class');
+
         return new $userClass();
     }
 }

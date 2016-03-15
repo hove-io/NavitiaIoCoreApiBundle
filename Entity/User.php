@@ -120,7 +120,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get BillingPlan
+     * Get BillingPlan.
      *
      * @return User
      */
@@ -276,22 +276,22 @@ class User extends BaseUser
     }
 
     /**
-    * Gets the value of website.
-    *
-    * @return string
-    */
+     * Gets the value of website.
+     *
+     * @return string
+     */
     public function getWebsite()
     {
         return $this->website;
     }
 
     /**
-    * Sets the value of website.
-    *
-    * @param string $website the website
-    *
-    * @return self
-    */
+     * Sets the value of website.
+     *
+     * @param string $website the website
+     *
+     * @return self
+     */
     public function setWebsite($website)
     {
         $this->website = $website;
@@ -300,7 +300,7 @@ class User extends BaseUser
     }
 
     /**
-     * Sets the walue of comment
+     * Sets the walue of comment.
      *
      * @return string
      */
@@ -310,9 +310,10 @@ class User extends BaseUser
     }
 
     /**
-     * Gets the value of comment
+     * Gets the value of comment.
      *
      * @param string $comment
+     *
      * @return self
      */
     public function setComment($comment)

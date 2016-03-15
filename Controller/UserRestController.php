@@ -89,9 +89,9 @@ class UserRestController extends Controller
         );
         $pagination->setCustomParameters(
             array(
-                'total_result'      => $pagination->getTotalItemCount(),
-                'start_page'        => $pagination->getCurrentPageNumber(),
-                'items_per_page'    => $pagination->getItemNumberPerPage()
+                'total_result' => $pagination->getTotalItemCount(),
+                'start_page' => $pagination->getCurrentPageNumber(),
+                'items_per_page' => $pagination->getItemNumberPerPage(),
             )
         );
 
@@ -107,8 +107,8 @@ class UserRestController extends Controller
      * Update some fields of an user.
      *
      * @param Request $request
-     * @param int $id
-     * @param string $_format
+     * @param int     $id
+     * @param string  $_format
      */
     public function patchUserAction(Request $request, $id, $_format)
     {
@@ -152,7 +152,7 @@ class UserRestController extends Controller
             if (array_key_exists($field, $patchFields)) {
                 if (method_exists($baseEntity, 'set'.$field)) {
                     $baseEntity->{'set'.$field}($patchFields[$field]);
-                    $processed []= $field;
+                    $processed [] = $field;
                 } else {
                     throw new UnprocessableEntityHttpException('Setter "set'.$field.'" not existing for this entity.');
                 }
