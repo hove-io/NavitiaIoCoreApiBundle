@@ -25,7 +25,7 @@ class BillingPlan
     private $maxObjectCount;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $default;
 
