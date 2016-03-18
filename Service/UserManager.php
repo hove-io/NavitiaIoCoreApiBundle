@@ -57,5 +57,7 @@ class UserManager extends BaseUserManager
 
         $this->tyrSynchronization->synchronizeTyr($user);
         $this->updateUser($user);
+
+        return $user;
     }
 }
