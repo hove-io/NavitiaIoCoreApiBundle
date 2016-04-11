@@ -23,3 +23,5 @@ CanalTP\NavitiaIoCoreApiBundle\Entity\User:
             expose: true
         comment:
             expose: true
+        origin:
+            expose: true
