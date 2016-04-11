@@ -300,7 +300,7 @@ class User extends BaseUser
     }
 
     /**
-     * Sets the walue of comment.
+     * Sets the value of comment.
      *
      * @return string
      */
