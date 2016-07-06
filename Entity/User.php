@@ -89,7 +89,7 @@ class User extends BaseUser
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id", unique=true)}
      *      )
      */
-    private $tags;
+    protected $tags;
 
     /**
      * Constructor.
