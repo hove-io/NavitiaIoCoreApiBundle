@@ -3,6 +3,7 @@
 namespace CanalTP\NavitiaIoCoreApiBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -80,11 +81,24 @@ class User extends BaseUser
     protected $comment;
 
     /**
+     * @var Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="CanalTP\NavitiaIoCoreApiBundle\Entity\Tag")
+     * @ORM\JoinTable(name="users_tags",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    private $tags;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         parent::__construct();
+
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -300,7 +314,7 @@ class User extends BaseUser
     }
 
     /**
-     * Sets the value of comment.
+     * Gets the value of comment.
      *
      * @return string
      */
@@ -310,7 +324,7 @@ class User extends BaseUser
     }
 
     /**
-     * Gets the value of comment.
+     * Sets the value of comment.
      *
      * @param string $comment
      *
@@ -319,6 +333,28 @@ class User extends BaseUser
     public function setComment($comment)
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of tags.
+     *
+     * @return Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Sets the value of tags.
+     *
+     * @return self
+     */
+    public function setTags(ArrayCollection $tags)
+    {
+        $this->tags = $tags;
 
         return $this;
     }
