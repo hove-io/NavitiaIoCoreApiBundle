@@ -1,0 +1,9 @@
+CanalTP\NavitiaIoCoreApiBundle\Entity\Tag:
+    exclusion_policy: ALL
+    access_type: property
+    xml_root_name: tag
+    properties:
+        id:
+            expose: true
+        name:
+            expose: true

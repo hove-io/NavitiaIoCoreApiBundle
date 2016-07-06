@@ -25,3 +25,5 @@ CanalTP\NavitiaIoCoreApiBundle\Entity\User:
             expose: true
         origin:
             expose: true
+        tags:
+            expose: true
