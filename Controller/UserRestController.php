@@ -118,53 +118,7 @@ class UserRestController extends Controller
         $user = $userManager->findUserBy(['id' => $id]);
         $patchFields = $serializer->deserialize($request->getContent(), 'array', $_format);
 
-        if (isset($patchFields['billingPlanId'])) {
-            $billingPlanId = $patchFields['billingPlanId'];
-            unset($patchFields['billingPlanId']);
-
-            $this->get('canal_tp_tyr.api')->updateUser($user->getTyrId(), [
-                'billing_plan_id' => $billingPlanId,
-            ]);
-        }
-
-        $this->patchEntity($user, $patchFields, [
-            'firstName',
-            'lastName',
-            'website',
-            'company',
-            'comment',
-        ]);
-
-        $userManager->updateUser($user);
-    }
-
-    /**
-     * Patch an entity with fields.
-     *
-     * @param mixed $baseEntity
-     * @param array $patchFields
-     */
-    private function patchEntity($baseEntity, $patchFields, array $whitelist)
-    {
-        $processed = [];
-
-        foreach ($whitelist as $field) {
-            if (array_key_exists($field, $patchFields)) {
-                if (method_exists($baseEntity, 'set'.$field)) {
-                    $baseEntity->{'set'.$field}($patchFields[$field]);
-                    $processed [] = $field;
-                } else {
-                    throw new UnprocessableEntityHttpException('Setter "set'.$field.'" not existing for this entity.');
-                }
-            }
-        }
-
-        $unprocessed = array_diff(array_keys($patchFields), $processed);
-
-        if (count($unprocessed) > 0) {
-            throw new UnprocessableEntityHttpException(
-                'Field(s) '.implode(', ', $unprocessed).' cannot be updated or no setter.'
-            );
-        }
+        $userManager->updateTyrApi($user->getTyrId(), $patchFields);
+        $userManager->updateDatabase($user, $patchFields);
     }
 }
