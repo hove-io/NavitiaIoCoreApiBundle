@@ -8,7 +8,6 @@ use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use CanalTP\TyrComponent\TyrService;
 use CanalTP\NavitiaIoUserBundle\Service\TyrSynchronization;
 use CanalTP\NavitiaIoUserBundle\Model\RegisterFolder;
 use CanalTP\NavitiaIoUserBundle\Entity\User;
@@ -24,7 +23,7 @@ class UserManager extends BaseUserManager
         ObjectManager $om,
         $class,
         TyrSynchronization $tyrSynchronization,
-        TyrService $tyrApi
+        $tyrApi
     ) {
         parent::__construct($encoderFactory, $usernameCanonicalizer, $emailCanonicalizer, $om, $class);
 
