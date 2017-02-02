@@ -14,3 +14,4 @@ services:
             - @fos_user.entity_manager
             - %fos_user.model.user.class%
             - @canal_tp_navitia_io.tyr_synchronization
+            - @canal_tp_tyr.api
